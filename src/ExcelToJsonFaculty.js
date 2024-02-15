@@ -36,7 +36,7 @@ const handleFileChange = (event) => {
               const mainKey = row[0]; 
               formattedJsonData[mainKey] = obj;
             }
-            axios.post("http://localhost:5000/facultylist-api/facultylist-insert",formattedJsonData)
+            axios.post("/facultylist-api/facultylist-insert",formattedJsonData)
             .then((response)=>{
                 console.log("insertion success : ");
             })

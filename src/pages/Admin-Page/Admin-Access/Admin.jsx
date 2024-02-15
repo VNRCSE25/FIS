@@ -20,7 +20,7 @@ function Admin() {
     // Fetch user details from the server
     const token = localStorage.getItem("token");
     axios
-      .get("http://localhost:5000/user-api/get-user-info", {
+      .get("/user-api/get-user-info", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -51,7 +51,7 @@ function Admin() {
 
       // Example: You may want to send an API request to update user data
       const token = localStorage.getItem("token");
-      let response=await axios.put("http://localhost:5000/user-api/update", userDetails, {
+      let response=await axios.put("/user-api/update", userDetails, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

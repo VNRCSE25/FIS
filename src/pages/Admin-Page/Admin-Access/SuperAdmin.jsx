@@ -30,7 +30,7 @@ function SuperAdmin() {
       return null;
     }
     axios
-      .get("http://localhost:5000/user-api/get-users", {
+      .get("/user-api/get-users", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -109,7 +109,7 @@ function SuperAdmin() {
         return null;
       }
       axios
-        .get("http://localhost:5000/user-api/get-users", {
+        .get("/user-api/get-users", {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -132,7 +132,7 @@ function SuperAdmin() {
         });
         return;
       }
-      const response = await axios.get(`http://localhost:5000/user-api/search-users/${searchInput}`, {
+      const response = await axios.get(`/user-api/search-users/${searchInput}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -180,7 +180,7 @@ function SuperAdmin() {
     try {
       // Fetch request to set default password
       const response = await axios.delete(
-        `http://localhost:5000/user-api/remove-user/${username}`,
+        `/user-api/remove-user/${username}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -225,7 +225,7 @@ function SuperAdmin() {
       console.log("Save changes for user:", editedData[userId]);
       // Example: You may want to send an API request to update user data
       await axios.put(
-        "http://localhost:5000/user-api/update",
+        "/user-api/update",
         editedData[userId],
         {
           headers: {
@@ -271,7 +271,7 @@ function SuperAdmin() {
     try {
       // Fetch request to set default password
       const response = await axios.get(
-        `http://localhost:5000/user-api/set-default-password/${username}`,
+        `/user-api/set-default-password/${username}`,
         {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -327,7 +327,7 @@ function SuperAdmin() {
         return;
       }
       // Send the new user object to the backend
-      const response = await axios.post('http://localhost:5000/user-api/user-signup', newUser, {
+      const response = await axios.post('/user-api/user-signup', newUser, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`,
         },

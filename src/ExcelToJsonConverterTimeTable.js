@@ -55,7 +55,7 @@ function ExcelUploader() {
     obj["dt1"] = dt1;
     obj["dt2"] = dtp;
     await axios
-      .post("http://localhost:5000/classfaculty-api/classtt-insert", obj)
+      .post("/classfaculty-api/classtt-insert", obj)
       .then((response) => {
         console.log("insertion into classtimtable api is success : ");
         
@@ -67,7 +67,7 @@ function ExcelUploader() {
   };
   const dataupdate = async () => {
     await axios
-      .post("http://localhost:5000/classtimetable-api/class-insert", table)
+      .post("/classtimetable-api/class-insert", table)
       .then((response) => {
         console.log("insertion into classtimtable api is success : ");
         toast.success('successfully inserted', {
@@ -97,7 +97,7 @@ function ExcelUploader() {
   };
   const listupdate = async () => {
     await axios
-      .post("http://localhost:5000/facultylist-api/facultydata", faclist)
+      .post("/facultylist-api/facultydata", faclist)
       .then((response) => {
         console.log("insertion into classtimtable api is success : ");
         toast.success('successfully inserted', {
@@ -127,7 +127,7 @@ function ExcelUploader() {
   };
   const handleReset = async () => {
     let response = await axios
-      .delete("http://localhost:5000/facultytimetable-api/reset")
+      .delete("/facultytimetable-api/reset")
       .then((response) => {
         console.log("Updated data is reset: ");
         toast.success('successfull reset', {
