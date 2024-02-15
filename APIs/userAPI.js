@@ -31,7 +31,7 @@ const verifySuperToken = async (req, res, next) => {
     try {
       //get user collection object
       const userCollectionObj = req.app.get("userCollectionObj")
-      const username = req.user.username;
+      const username = req.user.username.toLowerCase();
       const userOfDB = await userCollectionObj.findOne({ username });
     //   console.log(type)
       const type = userOfDB.type;
@@ -57,6 +57,7 @@ userApp.post("/user-signup",verifyToken,verifySuperToken, expressAsyncHandler(as
     const newUser = req.body
     // convert username to lowercase
     newUser.username = newUser.username.toLowerCase();
+    newUser.email = newUser.email.toLowerCase();
     //check for duplicate user by username
     let userOfDB = await userCollectionObj.findOne({ username: newUser.username })
     //if user already exist, send response to client "User already existed"
@@ -133,7 +134,7 @@ userApp.get('/get-users',verifyToken,verifySuperToken,expressAsyncHandler(async(
 
 // Route to search for users based on username or email
 userApp.get('/search-users/:userInput', verifyToken, verifySuperToken, expressAsyncHandler(async (req, res) => {
-  const userInput = req.params.userInput;
+  const userInput = req.params.userInput.toLowerCase();
 
   // get user collection object
   const userCollectionObj = req.app.get("userCollectionObj");
@@ -280,11 +281,12 @@ userApp.put('/update', verifyToken, expressAsyncHandler(async (req, res) => {
 
     // get modified user from the client
     let modifiedUser = req.body;
+    modifiedUser.email = modifiedUser.email.toLowerCase();
+    modifiedUser.username = modifiedUser.username.toLowerCase();
     let oldUsername = modifiedUser.username;
-    oldUsername=oldUsername.toLowerCase();
     // if username update required
     if (typeof(modifiedUser.newusername) !== 'undefined') {
-      modifiedUser.username = modifiedUser.newusername;
+      modifiedUser.username = modifiedUser.newusername.toLowerCase();
       delete modifiedUser.newusername;
     }
 
@@ -349,7 +351,7 @@ userApp.delete("/remove-user/:username",verifyToken,verifySuperToken,expressAsyn
     const userCollectionObj = req.app.get("userCollectionObj");
 
     // get username from the URL
-    let usernameOfUrl = req.params.username;
+    let usernameOfUrl = req.params.username.toLowerCase();
 
     // find the user by username
     const user = await userCollectionObj.findOne(
@@ -424,7 +426,7 @@ userApp.post('/reset-password', expressAsyncHandler(async (req, res) => {
     // Get user collection object
     const userCollectionObj = req.app.get("userCollectionObj");
     // Get user input (email or username)
-    const userInput = req.body.username;
+    const userInput = req.body.username.toLowerCase();
     // Check if the user exists in the database
     const user = await userCollectionObj.findOne({
       $or: [{ username: userInput }, { email: userInput }],
@@ -468,7 +470,7 @@ userApp.post('/reset-password', expressAsyncHandler(async (req, res) => {
 userApp.post('/verify-otp', expressAsyncHandler(async (req, res) => {
   try {
     // const { username, otp } = req.body;
-    const username = req.body.username;
+    const username = req.body.username.toLowerCase();
     const otp = req.body.otp;
     // Check if OTP is valid
     // console.log(otpStorage)
@@ -489,7 +491,7 @@ userApp.post('/verify-otp', expressAsyncHandler(async (req, res) => {
 userApp.put('/change-password-with-otp/:username', expressAsyncHandler(async (req, res) => {
   try {
     const userCollectionObj = req.app.get("userCollectionObj");
-    let username = req.params.username;
+    let username = req.params.username.toLowerCase();
     let newPassword = req.body.newPassword;
 
     // Hash the new password
@@ -535,7 +537,7 @@ userApp.post('/forgot-username', expressAsyncHandler(async (req, res) => {
     //get user collection
     const userCollectionObj=req.app.get("userCollectionObj")
     //get email
-    const email = req.body.email;
+    const email = req.body.email.toLowerCase();
     // console.log(email)
     // Check if the email exists in the database
     const user = await userCollectionObj.findOne({ email });
