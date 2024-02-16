@@ -40,18 +40,18 @@ facultytimetableApp.delete(
     expressAsyncHandler(async (req, res) => {
       try {
         const facultyTimeTableObj = req.app.get("facultyTimeTableObj");
-      const freeHoursObj=req.app.get("freeHoursObj")
-      const keyToRemove = "special"; // Replace with your specific key
-      const updateQuery = {
-        $unset: {
-          [keyToRemove]: 1
-        }
-      };
-      const updateOptions = {
-        multi: true // Update multiple documents
-      };
-      a=await facultyTimeTableObj.updateMany({}, updateQuery, updateOptions);
-      const result = await freeHoursObj.updateMany({}, updateQuery, updateOptions);
+        const freeHoursObj=req.app.get("freeHoursObj")
+        const keyToRemove = "special"; // Replace with your specific key
+        const updateQuery = {
+          $unset: {
+            [keyToRemove]: 1
+          }
+        };
+        const updateOptions = {
+          multi: true // Update multiple documents
+        };
+        a=await facultyTimeTableObj.updateMany({}, updateQuery, updateOptions);
+        const result = await freeHoursObj.updateMany({}, updateQuery, updateOptions);
       } catch (error) {
         res.status(500).send({ error: "An internal server error occurred" });
       }

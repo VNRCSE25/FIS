@@ -161,9 +161,7 @@ userApp.get('/set-default-password/:username',verifyToken,verifySuperToken,expre
         //get user collection
         const userCollectionObj=req.app.get("userCollectionObj")
         // get username from url
-        let usernameOfUrl=req.params.username;
-        // convert username to lowercase
-        usernameOfUrl = usernameOfUrl.toLowerCase();
+        let usernameOfUrl=req.params.username.toLowerCase();
         //set a default password
         let defaultPassword="welcome123";
         //has default password
@@ -217,9 +215,7 @@ userApp.put('/change-password/:username', verifyToken, expressAsyncHandler(async
     // get user collection
     const userCollectionObj = req.app.get('userCollectionObj');
     // get username from URL
-    let usernameOfUrl = req.params.username;
-    // convert username to lowercase
-    usernameOfUrl = usernameOfUrl.toLowerCase();
+    let usernameOfUrl = req.params.username.toLowerCase();
     // get old and new passwords from the request body
     const oldPassword = req.body.oldPassword;
     const newPassword = req.body.newPassword;
@@ -570,4 +566,4 @@ userApp.post('/forgot-username', expressAsyncHandler(async (req, res) => {
 }));
 
 //export express app
-module.exports = userApp;
+module.exports = userApp; 
