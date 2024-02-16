@@ -115,6 +115,10 @@ function ResetPassword() {
 
   const handleResetPassword = async () => {
     try {
+      if(newPassword!==confirmNewPassword){
+        toast.error("Passwords do not match");
+        return null;
+      }
       const response = await axios.put(
         `/user-api/change-password-with-otp/${currentUser.username}`,
         { newPassword }
@@ -327,6 +331,24 @@ function ResetPassword() {
                     placeholder="Password"
                     value={newPassword}
                     onChange={(e) => setNewPassword(e.target.value)}
+                  />
+                </div>
+              </div>
+              <label
+                htmlFor="confirmNewPassword"
+                className="text-white fw-bold fs-5 p-2"
+              >
+                Confirm New Password:
+              </label>
+              <div className="row">
+                <div className="col-lg-4 col-sm-6 col-md-6 m-2">
+                  <input
+                    type="password"
+                    id="confirmNewPassword"
+                    className="search-input form-control me-2"
+                    placeholder="Confirm New Password"
+                    value={confirmNewPassword}
+                    onChange={(e) => setConfirmNewPassword(e.target.value)}
                   />
                 </div>
               </div>

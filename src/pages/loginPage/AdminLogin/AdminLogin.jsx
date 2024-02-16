@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext , useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { NavLink, useNavigate } from 'react-router-dom'
 import { loginContext } from '../../../contexts/loginContext'
@@ -10,13 +10,21 @@ import { useSpring,animated } from 'react-spring';
 function AdminLogin() {
   let [, loginUser, userLoginStatus, loginErr,] = useContext(loginContext)
   const navigate = useNavigate()
-  let { register, handleSubmit, formState: { errors } } = useForm()
-  let submitForm = async (userCredObj) => {
-    await loginUser(userCredObj);
-    if (userLoginStatus) {
-      navigate('/adminpage')
+  const [loading, setLoading] = useState(false);
+  const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
+  const submitForm = async (userCredObj) => {
+    try {
+      setLoading(true);
+      loginUser(userCredObj);
+    } finally {
+      setLoading(false);
     }
   }
+  useEffect(()=>{
+    if (userLoginStatus) {
+      navigate('/adminpage');
+    }
+  },[loading,userLoginStatus])
   const fadeInFromLeftAnimation = useSpring({
     to: { opacity: 1, transform: "translateX(0px)" },
     from: { opacity: 0, transform: "translateX(-20px)" },
@@ -125,8 +133,9 @@ function AdminLogin() {
                   <Button
                     type="submit"
                     className="col-lg-3 bg-success border-success fw-bold"
+                    disabled={isSubmitting}
                   >
-                    Login
+                    {loading ? 'Logging in...' : 'Login'}
                   </Button>
                 </div>
               </form>
