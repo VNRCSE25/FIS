@@ -120,7 +120,7 @@ function ResetPassword() {
         return null;
       }
       const response = await axios.put(
-        `/user-api/change-password-with-otp/${currentUser.username}`,
+        `/user-api/change-password-with-otp/${username}`,
         { newPassword }
       );
       toast.success(response.data.message);

@@ -15,17 +15,18 @@ function RouteLayout() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const figmaFileKey = "your-figma-file-key"; // Replace with your Figma file key
-        const figmaAccessToken = "your-figma-access-token"; // Replace with your Figma access token
-        const response = await fetch(
-          `https://api.figma.com/v1/files/${figmaFileKey}`,
-          {
-            headers: {
-              "X-Figma-Token": figmaAccessToken,
-            },
-          }
-        );
-        const data = await response.json();
+        // const figmaFileKey = "your-figma-file-key"; // Replace with your Figma file key
+        // const figmaAccessToken = "your-figma-access-token"; // Replace with your Figma access token
+        // const response = await fetch(
+        //   `https://api.figma.com/v1/files/${figmaFileKey}`,
+        //   {
+        //     headers: {
+        //       "X-Figma-Token": figmaAccessToken,
+        //     },
+        //   }
+        // );
+        setTimeout(console.log("Delayed"), 3000)
+        const data = null;
         setDesignData(data);
         setLoading(false); // Set loading to false once data is fetched
       } catch (error) {
